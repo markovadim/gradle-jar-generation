@@ -9,11 +9,14 @@ java {
     targetCompatibility = "1.8"
 }
 
-jar{
+jar {
     archivesBaseName = 'utils'
-    manifest(){
+    manifest() {
         attributes('Implementation-Title': archiveBaseName,
                 'Implementation-Version': project.version)
+    }
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
     }
 }
 
